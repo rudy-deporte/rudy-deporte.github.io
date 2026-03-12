@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rudy Deporte — Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off-white: #f5f5f7;
+      --light-gray: #e8e8ed;
+      --mid-gray: #6e6e73;
+      --dark: #1d1d1f;
+      --accent: #1d1d1f;
+      --accent-soft: #f0f0f0;
+      --radius: 18px;
+      --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, 'SF Pro Text', 'SF Pro Display', BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      font-size: 17px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: all 0.3s var(--transition);
+    }
+    .nav-logo {
+      font-family: -apple-system, 'SF Pro Display', BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--dark);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--mid-gray);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--dark); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      background: var(--white);
+      position: relative;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--off-white);
+      color: var(--mid-gray);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--transition) 0.1s forwards;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--dark);
+    }
+    .hero h1 {
+      font-family: -apple-system, 'SF Pro Display', BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: clamp(52px, 8vw, 96px);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      color: var(--dark);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--transition) 0.25s forwards;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--dark);
+    }
+    .hero-sub {
+      font-size: 19px;
+      color: var(--mid-gray);
+      font-weight: 300;
+      max-width: 520px;
+      margin: 0 auto 48px;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--transition) 0.4s forwards;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--transition) 0.55s forwards;
+    }
+    .btn-primary {
+      background: var(--dark);
+      color: white;
+      padding: 13px 28px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 400;
+      text-decoration: none;
+      transition: all 0.3s var(--transition);
+      border: none; cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: #3a3a3c;
+      transform: scale(1.02);
+    }
+    .btn-secondary {
+      background: var(--off-white);
+      color: var(--dark);
+      padding: 13px 28px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 400;
+      text-decoration: none;
+      transition: all 0.3s var(--transition);
+    }
+    .btn-secondary:hover {
+      background: var(--light-gray);
+      transform: scale(1.02);
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--light-gray);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 1s var(--transition) 1.2s forwards;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 32px;
+      background: var(--light-gray);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ─── SECTIONS ─── */
+    section {
+      padding: 100px 24px;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: -apple-system, 'SF Pro Display', BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: clamp(36px, 5vw, 54px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--dark);
+      margin-bottom: 56px;
+    }
+
+    /* ─── ABOUT ─── */
+    #about { background: var(--off-white); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .about-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 36px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.04);
+      transition: transform 0.3s var(--transition), box-shadow 0.3s var(--transition);
+    }
+    .about-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08), 0 16px 48px rgba(0,0,0,0.07);
+    }
+    .about-card h3 {
+      font-family: -apple-system, 'SF Pro Display', BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+    .about-card p {
+      font-size: 15px;
+      color: var(--mid-gray);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .about-card .icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    /* ─── SKILLS ─── */
+    #skills { background: var(--white); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .skill-group {
+      background: var(--off-white);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: transform 0.3s var(--transition);
+    }
+    .skill-group:hover { transform: translateY(-3px); }
+    .skill-group-title {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      margin-bottom: 16px;
+    }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .skill-tag {
+      background: white;
+      color: var(--dark);
+      font-size: 13px;
+      font-weight: 400;
+      padding: 5px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--light-gray);
+    }
+
+    /* ─── ÉTUDES ─── */
+    #etudes { background: var(--off-white); }
+    .timeline {
+      position: relative;
+      padding-left: 28px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 0;
+      width: 1px;
+      background: var(--light-gray);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      padding: 28px 32px;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      transition: transform 0.3s var(--transition);
+    }
+    .timeline-item:hover { transform: translateX(4px); }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -34px; top: 36px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--dark);
+      border: 2px solid white;
+      box-shadow: 0 0 0 2px var(--dark);
+    }
+    .timeline-date {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      margin-bottom: 6px;
+    }
+    .timeline-title {
+      font-family: -apple-system, 'SF Pro Display', BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+    .timeline-sub {
+      font-size: 14px;
+      color: var(--mid-gray);
+      font-weight: 300;
+    }
+    .timeline-desc {
+      font-size: 14px;
+      color: var(--mid-gray);
+      margin-top: 12px;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+    .timeline-item-inner {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .timeline-content { flex: 1; min-width: 0; }
+    .timeline-img-zone {
+      flex-shrink: 0;
+      width: 80px; height: 80px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--off-white);
+      border: 1px solid var(--light-gray);
+    }
+    .timeline-img-zone img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .timeline-img-zone.empty {
+      border: 1.5px dashed var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .timeline-img-zone.empty::after {
+      content: '';
+      width: 24px; height: 24px;
+      background: var(--light-gray);
+      border-radius: 4px;
+    }
+
+    .about-card .card-img {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      object-fit: cover;
+      margin-bottom: 16px;
+      display: block;
+      background: var(--light-gray);
+    }
+    .certif-img {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      object-fit: cover;
+      margin-bottom: 14px;
+      display: block;
+      background: var(--light-gray);
+    }
+    #articles { background: var(--white); }
+    .articles-intro {
+      font-size: 17px;
+      color: var(--mid-gray);
+      font-weight: 300;
+      max-width: 580px;
+      margin-bottom: 48px;
+      line-height: 1.7;
+    }
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .article-card {
+      background: var(--off-white);
+      border-radius: var(--radius);
+      padding: 28px;
+      cursor: pointer;
+      transition: all 0.3s var(--transition);
+      border: 1px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    .article-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--dark);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .article-card:hover {
+      transform: translateY(-4px);
+      background: white;
+      border-color: var(--light-gray);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.07);
+    }
+    .article-card:hover::before { opacity: 1; }
+    .article-num {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--mid-gray);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .article-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 8px;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+    .article-desc {
+      font-size: 13px;
+      color: var(--mid-gray);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+    .article-theme {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: var(--light-gray);
+      color: var(--dark);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      background: var(--dark);
+      text-align: center;
+    }
+    #contact .section-label { color: rgba(255,255,255,0.4); }
+    #contact .section-title { color: white; margin-bottom: 20px; }
+    #contact p {
+      color: rgba(255,255,255,0.5);
+      font-size: 17px;
+      font-weight: 300;
+      margin-bottom: 44px;
+    }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 400;
+      text-decoration: none;
+      transition: all 0.3s var(--transition);
+    }
+    .contact-link.light {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .contact-link.light:hover {
+      background: rgba(255,255,255,0.18);
+      transform: scale(1.03);
+    }
+    .contact-link.accent {
+      background: white;
+      color: var(--dark);
+    }
+    .contact-link.accent:hover {
+      background: var(--off-white);
+      transform: scale(1.03);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+      padding: 24px;
+      color: rgba(255,255,255,0.25);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { transform: scaleY(1); opacity: 0.4; }
+      50%       { transform: scaleY(0.6); opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── MODAL ─── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s var(--transition);
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal {
+      background: white;
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 560px;
+      width: 100%;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.18);
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.35s var(--transition);
+      position: relative;
+    }
+    .modal-overlay.open .modal {
+      transform: translateY(0) scale(1);
+    }
+    .modal-close {
+      position: absolute;
+      top: 18px; right: 18px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: var(--off-white);
+      color: var(--mid-gray);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, color 0.2s;
+    }
+    .modal-close:hover { background: var(--light-gray); color: var(--dark); }
+    .modal-num {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--mid-gray);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .modal-title {
+      font-family: -apple-system, 'SF Pro Display', BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--dark);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .modal-theme {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: var(--light-gray);
+      color: var(--dark);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 20px;
+    }
+    .modal-divider {
+      height: 1px;
+      background: var(--light-gray);
+      margin-bottom: 20px;
+    }
+    .modal-desc {
+      font-size: 15px;
+      color: var(--mid-gray);
+      line-height: 1.75;
+      font-weight: 300;
+      margin-bottom: 28px;
+    }
+    .modal-link-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      margin-bottom: 8px;
+    }
+    .modal-url-input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--light-gray);
+      font-size: 13px;
+      color: var(--dark);
+      font-family: inherit;
+      background: var(--off-white);
+      outline: none;
+      transition: border 0.2s;
+    }
+    .modal-url-input:focus { border-color: var(--dark); }
+    .modal-url-input::placeholder { color: var(--light-gray); }
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .modal-btn-open {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dark);
+      color: white;
+      text-decoration: none;
+      padding: 13px 28px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-family: inherit;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .modal-btn-open:hover { background: #3a3a3c; transform: scale(1.02); }
+
+    /* article card clickable cursor */
+    .article-card { cursor: pointer; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 48px; }
+      .modal { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Rudy Deporte</a>
+    <ul class="nav-links">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#skills">Compétences</a></li>
+      <li><a href="#etudes">Parcours</a></li>
+      <li><a href="#articles">Articles</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-tag">BTS SIO · Option SISR · 2ᵉ année</div>
+    <h1>Rudy<br><em>DEPORTE</em><br></h1>
+    <p class="hero-sub">Etudiant en informatique, infrastructure réseau et cybersécurité. En formation BTS SIO SISR.</p>
+    <div class="hero-cta">
+      <a href="#etudes" class="btn-primary">Mon parcours →</a>
+      <a href="#articles" class="btn-secondary">Voir les articles</a>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <section id="about">
+    <div class="container">
+      <p class="section-label reveal">Qui suis-je</p>
+      <h2 class="section-title reveal">Une approche<br>réseaux &amp; systèmes.</h2>
+      <div class="about-grid">
+        <div class="about-card reveal">
+          <!-- Remplace src="" par le chemin de ton image -->
+          <img src="PT.png" alt="Réseaux" class="card-img" />
+          <h3>Réseaux &amp; Infra</h3>
+          <p>Passionné par la conception et l'administration d'infrastructures réseau — du câblage jusqu'à la supervision. À l'aise avec TCP/IP, VLANs, routage et commutation.</p>
+        </div>
+        <div class="about-card reveal">
+          <!-- Remplace src="" par le chemin de ton image -->
+          <img src="cyber.png" alt="Cybersécurité" class="card-img" />
+          <h3>Cybersécurité</h3>
+          <p>Sensibilisé aux enjeux de sécurité des SI : durcissement des systèmes, gestion des accès, politiques de mots de passe, et veille technologique régulière.</p>
+        </div>
+        <div class="about-card reveal">
+          <!-- Remplace src="" par le chemin de ton image -->
+          <img src="windows-11.jpg" alt="Linux" class="card-img" />
+          <h3>Windows Server</h3>
+          <p>Administration quotidienne sous Windows Server. Mise en place de services (DNS, DHCP, Active Directory).</p>
+        </div>
+        <div class="about-card reveal">
+          <!-- Remplace src="" par le chemin de ton image -->
+          <img src="ar.png" alt="Support" class="card-img" />
+          <h3>Support &amp; Helpdesk</h3>
+          <p>Expérience en assistance aux utilisateurs, diagnostic de pannes matérielles et logicielles, gestion de tickets et rédaction de documentation technique.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPÉTENCES -->
+  <section id="skills">
+    <div class="container">
+      <p class="section-label reveal">Compétences</p>
+      <h2 class="section-title reveal">Technologies<br>&amp; outils maîtrisés.</h2>
+      <div class="skills-grid">
+        <div class="skill-group reveal">
+          <div class="skill-group-title">Réseaux</div>
+          <div class="skill-tags">
+            <span class="skill-tag">TCP/IP</span>
+            <span class="skill-tag">VLAN</span>
+            <span class="skill-tag">OSPF</span>
+            <span class="skill-tag">VPN</span>
+            <span class="skill-tag">Firewall</span>
+            <span class="skill-tag">Wireshark</span>
+            <span class="skill-tag">Cisco IOS</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-title">Systèmes</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Linux</span>
+            <span class="skill-tag">Windows Server</span>
+            <span class="skill-tag">Active Directory</span>
+            <span class="skill-tag">Bash</span>
+            <span class="skill-tag">PowerShell</span>
+            <span class="skill-tag">Virtualisation</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-title">Cybersécurité</div>
+          <div class="skill-tags">
+            <span class="skill-tag">RGPD</span>
+            <span class="skill-tag">Pare-feu</span>
+            <span class="skill-tag">SSL</span>
+            <span class="skill-tag">Audit</span>
+            <span class="skill-tag">ANSSI</span>
+            <span class="skill-tag">Hardening</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-title">Services &amp; Cloud</div>
+          <div class="skill-tags">
+            <span class="skill-tag">DNS / DHCP</span>
+            <span class="skill-tag">VMware</span>
+            <span class="skill-tag">Azure (bases)</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-title">Développement</div>
+          <div class="skill-tags">
+            <span class="skill-tag">HTML / CSS</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">SQL</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <div class="skill-group-title">Outils professionnels</div>
+          <div class="skill-tags">
+            <span class="skill-tag">GLPI</span>
+            <span class="skill-tag">nmap</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">Office 365</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÉTUDES -->
+  <section id="etudes">
+    <div class="container">
+      <p class="section-label reveal">Parcours</p>
+      <h2 class="section-title reveal">Formation<br>&amp; expériences.</h2>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-item-inner">
+            <div class="timeline-content">
+              <div class="timeline-date">Janvier 2026 - Février 2026</div>
+              <div class="timeline-title">Stage Support Informatique</div>
+              <div class="timeline-sub">Caux Seine Agglo</div>
+              <div class="timeline-desc">Gestion des incidents et demandes utilisateurs via GLPI (création, suivi et résolution de tickets),Diagnostic et dépannage matériel : postes informatiques, périphériques et équipements réseau, Maintenance et réparation de PC (remplacement de composants, réinstallation système), Assistance technique aux utilisateurs (problèmes logiciels, accès, configuration), Participation au déploiement de postes informatiques et préparation du matériel</div>
+            </div>
+            <!-- Remplace src="" par le chemin de ton image -->
+            <div class="timeline-img-zone">
+              <img src="CSA.png" alt="" />
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-item-inner">
+            <div class="timeline-content">
+              <div class="timeline-date">Décembre 2025 - Actuellement </div>
+              <div class="timeline-title">Micro-entrepreneur informatique</div>
+              <div class="timeline-sub">Seren'IT</div>
+              <div class="timeline-desc">Diagnostic et dépannage de pannes matérielles et logicielles sur postes informatiques, Réparation et remplacement de composants (disques, RAM, alimentation, etc.), Montage d’ordinateurs sur mesure selon les besoins clients.</div>
+            </div>
+            <!-- Remplace src="" par le chemin de ton image -->
+            <div class="timeline-img-zone">
+              <img src="Seren’it.png" alt=""/>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-item-inner">
+            <div class="timeline-content">
+              <div class="timeline-date">Stage 2025</div>
+              <div class="timeline-title">Stage en entreprise — 1ère année</div>
+              <div class="timeline-sub">Reflex'So Bien Etre — Site Web</div>
+              <div class="timeline-desc">Refonte du site web aux besoins de la reflexologue.</div>
+            </div>
+            <!-- Remplace src="" par le chemin de ton image -->
+            <div class="timeline-img-zone">
+              <img src="test.png" alt=""/>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-item-inner">
+            <div class="timeline-content">
+              <div class="timeline-date">Septembre 2024 - Juillet 2026</div>
+              <div class="timeline-title">BTS SIO - Option SISR</div>
+              <div class="timeline-sub">Saint Jo SUP</div>
+              <div class="timeline-desc">Brevet de Technicien Supérieur Services Informatiques aux Organisations (SIO) Option Solutions d'Infrastructure, Systèmes et Réseaux (SISR).</div>
+            </div>
+            
+            <div class="timeline-img-zone">
+              <img src="SUP.png" alt=""/>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-item-inner">
+            <div class="timeline-content">
+              <div class="timeline-date">Août 2024 - Actuellement</div>
+              <div class="timeline-title">Employé Polyvalent</div>
+              <div class="timeline-sub">Intermarché Montivilliers</div>
+              <div class="timeline-desc">Accueil et encaissement des clients - Préparations de commandes Drive - Mise en rayon de produit - Service Boulangerie.</div>
+            </div>
+            
+            <div class="timeline-img-zone">
+              <img src="inter.jpg" alt=""/>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-item-inner">
+            <div class="timeline-content">
+              <div class="timeline-date">2023 - 2024</div>
+              <div class="timeline-title">Baccalauréat Général</div>
+              <div class="timeline-sub">Institution Saint Joseph</div>
+              <div class="timeline-desc">Spécialités Sciences Economiques & Sociales (SES) et Science et Vie de la Terre (SVT).</div>
+            </div>
+            
+            <div class="timeline-img-zone">
+              <img src="images.jpg" alt=""/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications" style="background: var(--white);">
+    <div class="container">
+      <p class="section-label reveal">Certifications</p>
+      <h2 class="section-title reveal">Diplômes<br>&amp; certifications.</h2>
+      <div class="skills-grid">
+
+        <div class="skill-group reveal" style="background: var(--off-white); padding: 32px;">
+          <!-- Remplace src="" par le chemin de ton image -->
+          <img src="logo-CNIL.jpg" alt="Certification 1" class="certif-img" />
+          <div style="font-size: 18px; font-weight: 600; letter-spacing: -0.02em; color: var(--dark); margin-bottom: 6px;">CNIL</div>
+          <div style="font-size: 13px; color: var(--mid-gray); font-weight: 300; margin-bottom: 12px;">CNIL — 2025</div>
+          <div style="font-size: 13px; color: var(--mid-gray); line-height: 1.6; font-weight: 300;">CNIL : Commission Nationale de l'Informatique et des Libertés, attestation de sensibilisation à la protection des données personnelles et au respect du RGPD dans le cadre professionnel.</div>
+        </div>
+
+        <div class="skill-group reveal" style="background: var(--off-white); padding: 32px;">
+          <!-- Remplace src="" par le chemin de ton image -->
+          <img src="Anssi.png" alt="Certification 2" class="certif-img" />
+          <div style="font-size: 18px; font-weight: 600; letter-spacing: -0.02em; color: var(--dark); margin-bottom: 6px;">ANSSI</div>
+          <div style="font-size: 13px; color: var(--mid-gray); font-weight: 300; margin-bottom: 12px;">ANSSI — 2025</div>
+          <div style="font-size: 13px; color: var(--mid-gray); line-height: 1.6; font-weight: 300;">ANSSI : Agence Nationale de la Sécurité des Systèmes d'Information, formation aux bonnes pratiques de cybersécurité et à l'hygiène informatique selon le référentiel national français.</div>
+        </div>
+
+        <div class="skill-group reveal" style="background: var(--off-white); padding: 32px;">
+          <!-- Remplace src="" par le chemin de ton image -->
+          <img src="1747133102751.png" alt="Certification 3" class="certif-img" />
+          <div style="font-size: 18px; font-weight: 600; letter-spacing: -0.02em; color: var(--dark); margin-bottom: 6px;">Tryhackme</div>
+          <div style="font-size: 13px; color: var(--mid-gray); font-weight: 300; margin-bottom: 12px;">Tryhackme — 2026</div>
+          <div style="font-size: 13px; color: var(--mid-gray); line-height: 1.6; font-weight: 300;">TryHackMe : Plateforme de cybersécurité en ligne, formation pratique aux techniques de hacking éthique, pentest et investigation numérique à travers des labs et challenges interactifs.</div>
+        </div>
+
+         <div class="skill-group reveal" style="background: var(--off-white); padding: 32px;">
+          <!-- Remplace src="" par le chemin de ton image -->
+          <img src="Pix_logo.svg.png" alt="Certification 1" class="certif-img" />
+          <div style="font-size: 18px; font-weight: 600; letter-spacing: -0.02em; color: var(--dark); margin-bottom: 6px;">PIX</div>
+          <div style="font-size: 13px; color: var(--mid-gray); font-weight: 300; margin-bottom: 12px;">PIX — 2026</div>
+          <div style="font-size: 13px; color: var(--mid-gray); line-height: 1.6; font-weight: 300;">PIX : Certification officielle des compétences numériques, évaluation des savoirs et savoir-faire en informatique, internet et outils numériques, reconnue par l'Éducation Nationale.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLES BTS SIO -->
+  <section id="articles">
+    <div class="container">
+      <p class="section-label reveal">Veille technologique</p>
+      <h2 class="section-title reveal">14 articles pour<br>l'oral BTS SIO.</h2>
+      <p class="articles-intro reveal">Dans le cadre de l'épreuve E4 et de ma veille technologique, j'ai sélectionné et analysé 14 articles portant sur les thématiques de l'Intelligence Artificielle dans la médecine. Cliquez sur un article pour en savoir plus.</p>
+
+      <div class="articles-grid">
+
+        <div class="article-card reveal" data-num="Article 01" data-url="https://www.leparisien.fr/futurs/chatgpt-a-lhopital-lia-serait-capable-de-faire-des-diagnostics-comme-un-medecin-selon-une-etude-13-09-2023-ZDX42LD56VHBBEHWX5TQQZSXWQ.php" data-title="L’IA capable d’aider au diagnostic médical" data-theme="Intelligence Artificiel" data-desc="Une étude montre que l’IA peut proposer des diagnostics médicaux avec une précision proche de celle des médecins, ce qui pourrait aider les professionnels de santé à prendre des décisions plus rapidement.">
+          <div class="article-num">Article 01</div>
+          <div class="article-title">L’IA capable d’aider au diagnostic médical</div>
+          <div class="article-desc">Une étude montre que l’IA peut proposer des diagnostics médicaux avec une précision proche de celle des médecins, ce qui pourrait aider les professionnels de santé à prendre des décisions plus rapidement.</div>
+          <span class="article-theme">Intelligence Artificiel</span>
+        </div>
+
+        <div class="article-card reveal" data-num="Article 02" data-url="https://www.lorientlejour.com/article/1409641/cancers-dans-un-hopital-francais-lia-precise-les-diagnostics-en-un-clic-reportage.html" data-title="L’IA pour analyser les biopsies et détecter le cancer" data-theme="Intelligence Artificiel" data-desc="Dans certains hôpitaux, les prélèvements médicaux sont numérisés et analysés par des algorithmes capables d’aider à détecter des cancers plus rapidement.">
+          <div class="article-num">Article 02</div>
+          <div class="article-title">L’IA pour analyser les biopsies et détecter le cancer</div>
+          <div class="article-desc">Dans certains hôpitaux, les prélèvements médicaux sont numérisés et analysés par des algorithmes capables d’aider à détecter des cancers plus rapidement.</div>
+          <span class="article-theme">Intelligence Artificiel</span>
+        </div>
+
+        <div class="article-card reveal" data-num="Article 03" data-url="https://www.lemonde.fr/sciences/article/2025/08/14/aux-urgences-l-ia-peut-aider-les-medecins-face-aux-traumatises-severes_6629509_1650684.html" data-title="L'IA pour améliorer le tri des patients aux urgences" data-theme="Intelligence Artificielle" data-desc="Une intelligence artificielle appelée Shockmatrix peut analyser les données d'un patient et aider les médecins à évaluer la gravité d'un traumatisme.">
+          <div class="article-num">Article 03</div>
+          <div class="article-title">L'IA pour améliorer le tri des patients aux urgences</div>
+          <div class="article-desc">Une IA appelée Shockmatrix peut analyser les données d'un patient et aider les médecins à évaluer la gravité d'un traumatisme.</div>
+          <span class="article-theme">Intelligence Artificielle</span>
+        </div>
+
+        <div class="article-card reveal" data-num="Article 04" data-url="https://www.medecinesciences.org/articles/medsci/full_html/2024/04/msc240005/msc240005.html" data-title="L'intelligence artificielle dans la découverte de médicaments" data-theme="Intelligence Artificielle" data-desc="L'IA peut analyser de grandes bases de données pour identifier de nouvelles molécules et accélérer le développement de médicaments.">
+          <div class="article-num">Article 04</div>
+          <div class="article-title">L'intelligence artificielle dans la découverte de médicaments</div>
+          <div class="article-desc">L'IA peut analyser de grandes bases de données pour identifier de nouvelles molécules et accélérer le développement de médicaments.</div>
+          <span class="article-theme">Intelligence Artificielle</span>
+        </div>
+
+        <div class="article-card reveal" data-num="Article 05" data-url="https://www.em-consulte.com/article/1778966/la-radiologie-entre-deux-vagues-adoption-de-l-inte" data-title="L'IA en radiologie" data-theme="Intelligence Artificielle" data-desc="Les hôpitaux utilisent l'IA pour analyser des images médicales (scanner, IRM) afin de détecter certaines anomalies plus rapidement.">
+          <div class="article-num">Article 05</div>
+          <div class="article-title">L'IA en radiologie</div>
+          <div class="article-desc">Les hôpitaux utilisent l'IA pour analyser des images médicales (scanner, IRM) afin de détecter des anomalies plus rapidement.</div>
+          <span class="article-theme">Intelligence Artificielle</span>
+        </div>
+
+        <div class="article-card reveal" data-num="Article 06" data-url="https://www.em-consulte.com/article/1761238/unveiling-facilitators-and-barriers-to-artificial-" data-title="L'IA en cardiologie" data-theme="Intelligence Artificielle" data-desc="Les cardiologues utilisent l'intelligence artificielle pour analyser les données des patients et mieux diagnostiquer certaines maladies cardiovasculaires.">
+          <div class="article-num">Article 06</div>
+          <div class="article-title">L'IA en cardiologie</div>
+          <div class="article-desc">Les cardiologues utilisent l'IA pour analyser les données des patients et mieux diagnostiquer certaines maladies cardiovasculaires.</div>
+          <span class="article-theme">Intelligence Artificielle</span>
+        </div>
+
+        <div class="article-card reveal" data-num="Article 07" data-url="https://www.sciencedirect.com/science/article/abs/pii/S1246739126000072" data-title="Les enjeux éthiques de l'IA en médecine" data-theme="Intelligence Artificielle" data-desc="L'utilisation de l'IA en santé pose des questions importantes sur la protection des données médicales et la responsabilité en cas d'erreur.">
+          <div class="article-num">Article 07</div>
+          <div class="article-title">Les enjeux éthiques de l'IA en médecine</div>
+          <div class="article-desc">L'IA en santé soulève des questions importantes sur la protection des données médicales et la responsabilité en cas d'erreur.</div>
+          <span class="article-theme">Intelligence Artificielle</span>
+        </div>
+
+        <div class="article-card reveal" data-num="Article 08" data-url="https://medecine-generale.lequotidiendumedecin.fr/hopital/relations-medecin-patient/comment-lia-pourrait-impacter-la-relation-medecin-patient" data-title="L'impact de l'IA sur la relation médecin-patient" data-theme="Intelligence Artificielle" data-desc="L'IA pourrait aider les médecins à analyser les données des patients, mais elle ne peut pas remplacer la relation humaine entre le médecin et le patient.">
+          <div class="article-num">Article 08</div>
+          <div class="article-title">L'impact de l'IA sur la relation médecin-patient</div>
+          <div class="article-desc">L'IA peut aider à analyser les données des patients, mais ne peut pas remplacer la relation humaine médecin-patient.</div>
+          <span class="article-theme">Intelligence Artificielle</span>
+        </div>
+
+        <div class="article-card reveal" data-num="Article 09" data-url="https://arxiv.org/abs/2209.09631" data-title="L'IA pour analyser les dossiers médicaux" data-theme="Intelligence Artificielle" data-desc="Des algorithmes peuvent analyser automatiquement les dossiers médicaux tout en supprimant les informations personnelles afin de protéger la vie privée des patients.">
+          <div class="article-num">Article 09</div>
+          <div class="article-title">L'IA pour analyser les dossiers médicaux</div>
+          <div class="article-desc">Des algorithmes analysent automatiquement les dossiers médicaux en supprimant les informations personnelles pour protéger la vie privée.</div>
+          <span class="article-theme">Intelligence Artificielle</span>
+        </div>
+
+        <div class="article-card reveal" data-num="Article 10" data-url="https://arxiv.org/abs/2104.03969" data-title="L'IA pour détecter les maladies cardiaques" data-theme="Intelligence Artificielle" data-desc="Des chercheurs utilisent le machine learning pour analyser des notes cliniques et détecter certaines maladies comme l'insuffisance cardiaque.">
+          <div class="article-num">Article 10</div>
+          <div class="article-title">L'IA pour détecter les maladies cardiaques</div>
+          <div class="article-desc">Des chercheurs utilisent le machine learning pour analyser des notes cliniques et détecter des maladies comme l'insuffisance cardiaque.</div>
+          <span class="article-theme">Intelligence Artificielle</span>
+        </div>
+
+        <div class="article-card reveal" data-num="Article 11" data-url="https://arxiv.org/abs/2004.13839" data-title="L'IA pour analyser les certificats médicaux" data-theme="Intelligence Artificielle" data-desc="Les algorithmes peuvent reconnaître automatiquement des informations médicales dans des textes et aider à classer les maladies.">
+          <div class="article-num">Article 11</div>
+          <div class="article-title">L'IA pour analyser les certificats médicaux</div>
+          <div class="article-desc">Les algorithmes reconnaissent automatiquement des informations médicales dans des textes et aident à classer les maladies.</div>
+          <span class="article-theme">Intelligence Artificielle</span>
+        </div>
+
+        <div class="article-card reveal" data-num="Article 12" data-url="https://arxiv.org/abs/1907.10322" data-title="Les dossiers médicaux numériques et l'IA" data-theme="Intelligence Artificielle" data-desc="La numérisation des dossiers médicaux permet d'utiliser l'intelligence artificielle pour analyser les données de santé et améliorer les soins.">
+          <div class="article-num">Article 12</div>
+          <div class="article-title">Les dossiers médicaux numériques et l'IA</div>
+          <div class="article-desc">La numérisation des dossiers médicaux permet d'utiliser l'IA pour analyser les données de santé et améliorer les soins.</div>
+          <span class="article-theme">Intelligence Artificielle</span>
+        </div>
+
+        <div class="article-card reveal" data-num="Article 13" data-url="https://medecine-generale.lequotidiendumedecin.fr/hopital/relations-medecin-patient/comment-lia-pourrait-impacter-la-relation-medecin-patient" data-title="L'IA pour prédire l'évolution des maladies" data-theme="Intelligence Artificielle" data-desc="L'IA peut analyser des données médicales et prédire le risque de certaines maladies ou l'évolution d'un patient.">
+          <div class="article-num">Article 13</div>
+          <div class="article-title">L'IA pour prédire l'évolution des maladies</div>
+          <div class="article-desc">L'IA peut analyser des données médicales et prédire le risque de certaines maladies ou l'évolution d'un patient.</div>
+          <span class="article-theme">Intelligence Artificielle</span>
+        </div>
+
+        <div class="article-card reveal" data-num="Article 14" data-url="https://www.sciencedirect.com/science/article/abs/pii/S1246739126000072" data-title="L'IA pour améliorer la gestion des hôpitaux" data-theme="Intelligence Artificielle" data-desc="L'intelligence artificielle peut aider à organiser les soins, optimiser les ressources médicales et améliorer l'efficacité du système de santé.">
+          <div class="article-num">Article 14</div>
+          <div class="article-title">L'IA pour améliorer la gestion des hôpitaux</div>
+          <div class="article-desc">L'IA peut aider à organiser les soins, optimiser les ressources médicales et améliorer l'efficacité du système de santé.</div>
+          <span class="article-theme">Intelligence Artificielle</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL ARTICLE -->
+  <div class="modal-overlay" id="articleModal">
+    <div class="modal">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div class="modal-num" id="modalNum"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div><span class="modal-theme" id="modalTheme"></span></div>
+      <div class="modal-divider" style="margin-top:16px;"></div>
+      <div class="modal-desc" id="modalDesc"></div>
+      <div class="modal-actions">
+        <a class="modal-btn-open" id="modalOpenBtn" href="#" target="_blank">Ouvrir l'article ↗</a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-label reveal">Me contacter</p>
+      <h2 class="section-title reveal">Prenons contact.</h2>
+      <p class="reveal">Disponible pour des opportunités de stage, d'alternance<br>ou simplement pour échanger sur des projets informatiques.</p>
+      <div class="contact-links reveal">
+        <a href="/cdn-cgi/l/email-protection#5839343d207635392a2c3136183d35393134763b3735" class="contact-link accent">✉️ &nbsp;<span class="__cf_email__" data-cfemail="3e5f525b4610535f4c4a57507e5b535f5752105d5153"><span class="__cf_email__" data-cfemail="235156475a0d4746534c51574663455146460d4551">rudy.deporte@free.fr</span></span></a>
+        <a href="https://www.linkedin.com/in/rudy-deporte" target="_blank" class="contact-link light">LinkedIn</a>
+        <a href="https://seren-it.framer.website/" target="_blank" class="contact-link light">Mon entreprise</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Rudy DEPORTE · BTS SIO SISR · Tous droits réservés
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Staggered cards
+    document.querySelectorAll('.articles-grid .article-card').forEach((card, i) => {
+      card.style.transitionDelay = `${i * 40}ms`;
+    });
+    document.querySelectorAll('.skills-grid .skill-group').forEach((g, i) => {
+      g.style.transitionDelay = `${i * 50}ms`;
+    });
+
+    // ─── MODAL LOGIC ───
+    const modal = document.getElementById('articleModal');
+    const modalClose = document.getElementById('modalClose');
+    const modalNum = document.getElementById('modalNum');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalTheme = document.getElementById('modalTheme');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalOpenBtn = document.getElementById('modalOpenBtn');
+
+    document.querySelectorAll('.article-card').forEach(card => {
+      card.addEventListener('click', () => {
+        modalNum.textContent = card.dataset.num;
+        modalTitle.textContent = card.dataset.title;
+        modalTheme.textContent = card.dataset.theme;
+        modalDesc.textContent = card.dataset.desc;
+        modalOpenBtn.href = card.dataset.url || '#';
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    document.querySelector('.modal-overlay').addEventListener('click', (e) => {
+      if (e.target === document.querySelector('.modal-overlay')) closeModal();
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+
+  </script>
+</body>
+</html>
